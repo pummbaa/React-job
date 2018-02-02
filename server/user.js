@@ -4,8 +4,9 @@ const models = require('./module')
 const User = models.getModel('user')
 const utils = require('utility');
 const _filter = {'pwd':0,'__v':0}
+
 Router.get('/list',function(req,res){
-  //User.remove({},function(e,d){})
+  User.remove({},function(e,d){})
   User.find({},function(err,doc){
     return res.json(doc)
   })
@@ -26,6 +27,23 @@ Router.post('/register',function(req,res){
       res.cookie('userid',doc._id)
       return res.json({code:0,data:{user,type,_id}})
     })
+  })
+})
+
+Router.post('/update',function(req,res){
+  const userid = req.cookies.userid
+  if(!userid){
+    return json.dumps({code:1})
+  }
+  const body = req.body
+  User.findByIdAndUpdate({_id:userid},body,function(err,doc){
+    if(err){
+      return res.json({code:1,msg:'后端出错了'})
+    }
+    if(doc){
+      const data = Object.assign({},{user:doc.user,type:doc.type},body)
+      return res.json({code:0,data})
+    }
   })
 })
 

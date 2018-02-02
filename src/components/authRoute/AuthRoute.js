@@ -1,4 +1,4 @@
-import React ,{Component} from 'react'
+import React from 'react'
 import axios from 'axios'
 import {withRouter} from 'react-router-dom'
 import {loadData} from '../../redux/user.redux'
@@ -8,7 +8,7 @@ import {connect} from 'react-redux'
   null,
   {loadData}
 )
-export default class AuthRoute extends Component{
+export default class AuthRoute extends React.Component{
   render(){
     return null
   }
