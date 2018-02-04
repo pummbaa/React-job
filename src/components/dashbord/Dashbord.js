@@ -12,9 +12,6 @@ import Msg from '../msg/Msg'
   state=>state,
 )
 export default class Dashbord extends Component{
-  constructor(props){
-    super(props)
-  }
 
   render(){
     const user = this.props.user

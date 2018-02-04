@@ -14,10 +14,10 @@ export default class AuthRoute extends React.Component{
   }
 
   componentDidMount(){
-    const publicList = ['/login','register ']
+    const publicList = ['/login','/register']
       //获取用户信息
     const pathname = this.props.location.pathname
-    if(publicList.includes(pathname)){
+    if(publicList.indexOf(pathname)>-1){
       return null
     }
     axios.get('/user/info').then(res=>{

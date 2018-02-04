@@ -6,10 +6,14 @@ const utils = require('utility');
 const _filter = {'pwd':0,'__v':0}
 
 Router.get('/list',function(req,res){
-  User.remove({},function(e,d){})
-  User.find({},function(err,doc){
-    return res.json(doc)
+  const {type} = req.query
+  User.find({type},_filter,function(err,doc){
+    return res.json({code:0,data:doc})
   })
+})
+
+Router.get('/clear',function(req,res){
+  User.remove({},function(e,d){})
 })
 
 Router.post('/register',function(req,res){
