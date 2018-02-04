@@ -8,3 +8,39 @@ export function getRedirectPath({type,avatar}){
   }
   return url
 }
+
+
+//1.高阶组件属性代理
+// function WrappHello(Comp){
+//    class WrappComponent extends Component{
+//     render(){
+//       return(
+//         <div>
+//           <div>before hello</div>
+//           <Comp name='text' {...this.props}></Comp>
+//         </div>
+//       )
+//     }
+//   }
+//   return WrappComponent
+// }
+//
+// @WrappHello
+// class Hello extends Component{
+//   render(){
+//     return <h2>Hello world</h2>
+//   }
+// }
+//2.反向继承
+// function WrappHello(Comp){
+//   class WrapComp extends Comp{
+//    修改声明周期
+//     componentDidiMount(){
+//       console.log('新增声明周期')
+//     }
+//     render(){
+//       return <Comp></Comp>
+//     }
+//   }
+//   return WrapComp
+// }

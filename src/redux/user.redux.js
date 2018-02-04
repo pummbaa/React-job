@@ -5,6 +5,7 @@ const ERROR_MSG = 'ERROR_MSG'
 const LOAD_DATA = 'LOAD_DATA'
 const AUTH_SUCCESS = 'AUTH_SUCCESS'
 const LOGOUT = 'LOGOUT'
+const CHANGE_REDIRECT = 'CHANGE_REDIRECT'
 
 const initState = {
   redirectTo:'',
@@ -23,6 +24,8 @@ export function user(state=initState,action){
       return {...state,...action.payload}
     case LOGOUT:
       return {...initState,redirectTo:'/login'}
+    case CHANGE_REDIRECT:
+      return {...state,redirectTo:action.redirect}
     default:
       return state
   }
@@ -63,7 +66,11 @@ export function login({user,pwd}){
       })
   }
 }
-
+export function changeRedirectTo(redirect){
+  return dispatch=>{
+    (changeRedirectTo(redirect))
+  }
+}
 export function logoutSubmit(){
   return {type:LOGOUT}
 }
@@ -83,6 +90,10 @@ export function update(data){
         }
       })
   }
+}
+
+function changeRedirectTo(redirect){
+  return {type:CHANGE_REDIRECT,redirect}
 }
 
 function errorMsg(msg){

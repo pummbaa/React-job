@@ -13,7 +13,11 @@ Router.get('/list',function(req,res){
 })
 
 Router.get('/clear',function(req,res){
-  User.remove({},function(e,d){})
+  User.remove({},function(err,doc){
+    if(doc){
+      return res.json({code:0})
+    }
+  })
 })
 
 Router.post('/register',function(req,res){
