@@ -2,9 +2,9 @@ const express = require('express');
 const Router = express.Router();
 const models = require('./module')
 const User = models.getModel('user')
+const Chat = models.getModel('chat')
 const utils = require('utility');
 const _filter = {'pwd':0,'__v':0}
-
 Router.get('/list',function(req,res){
   const {type} = req.query
   User.find({type},_filter,function(err,doc){
@@ -13,10 +13,21 @@ Router.get('/list',function(req,res){
 })
 
 Router.get('/clear',function(req,res){
-  User.remove({},function(err,doc){
+  // User.remove({},function(err,doc){
+  //   if(doc){
+  //     return res.json({code:0})
+  //   }
+  // })
+  Chat.remove({},function(err,doc){
     if(doc){
       return res.json({code:0})
     }
+  })
+})
+
+Router.get('/chatlist',function(req,res){
+  Chat.find({},function(err,doc){
+    return res.json({doc:doc})
   })
 })
 
@@ -77,6 +88,22 @@ Router.get('/info',function(req,res){
     }
     return res.json({code:0,data:doc})
   })
+})
+
+Router.get('/getmsglist',function(req,res){
+  const user = req.cookies.userid
+  User.find({},function(e,userdoc){
+    let users = {}
+    userdoc.forEach(v=>{
+      users[v._id] = {name:v.user,avatar:v.avatar}
+    })
+    Chat.find({'$or':[{from:user},{to:user}]},function(err,doc){
+      if(!err){
+        return res.json({code:0,msgs:doc,users:users})
+      }
+    })
+  })
+
 })
 
 function md5Pwd(pwd){

@@ -19,13 +19,13 @@ export function user(state=initState,action){
     case AUTH_SUCCESS:
       return {...state,msg:'',...action.payload,redirectTo:getRedirectPath(action.payload)}
     case ERROR_MSG:
-      return {...state,isAuth:false,msg:action.msg}
+      return {...state,isAuth:false,msg:action.payload}
     case LOAD_DATA:
       return {...state,...action.payload}
     case LOGOUT:
       return {...initState,redirectTo:'/login'}
     case CHANGE_REDIRECT:
-      return {...state,redirectTo:action.redirect}
+      return {...state,redirectTo:action.payload}
     default:
       return state
   }
@@ -68,7 +68,7 @@ export function login({user,pwd}){
 }
 export function changeRedirectTo(redirect){
   return dispatch=>{
-    (changeRedirectTo(redirect))
+    dispatch(changeRedirect(redirect))
   }
 }
 export function logoutSubmit(){
@@ -92,12 +92,12 @@ export function update(data){
   }
 }
 
-function changeRedirectTo(redirect){
-  return {type:CHANGE_REDIRECT,redirect}
+function changeRedirect(redirect){
+  return {type:CHANGE_REDIRECT,payload:redirect}
 }
 
 function errorMsg(msg){
-  return {msg,type:ERROR_MSG}
+  return {payload:msg,type:ERROR_MSG}
 }
 
 
