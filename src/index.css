@@ -39,3 +39,7 @@
   bottom:0;
   width:100%;
 }
+
+#msg-page .am-badge {
+  margin-bottom: 3px;
+}
