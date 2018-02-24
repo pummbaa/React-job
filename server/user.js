@@ -24,7 +24,7 @@ Router.get('/clear',function(req,res){
     }
   })
 })
-
+ 
 Router.get('/chatlist',function(req,res){
   Chat.find({},function(err,doc){
     return res.json({doc:doc})
